@@ -297,7 +297,7 @@ root@56443a6b8b75:/# cat /mnt/data/test.txt
 This data will survive!
 ```
 
-#### 10. Git 설정 및 GitHub 연동과 11. 보안 및 개인정보 보호
+#### 10. Git 설정 및 GitHub 연동과 보안 및 개인정보 보호
 
 ```bash
 jha21vvv5332@c5r9s4 workspace % git config --global user.name "jha21vvv"
@@ -336,13 +336,18 @@ branch.main.merge=refs/heads/main
 branch.main.vscode-merge-base=origin/main
 :
 ```
-### 개인정보 보호를 위한 브랜치 리뉴얼: 기존 버전에 이메일이 적힌걸보고 지웠으나 히스토리에 남아있기에 히스토리전부 지우기위하여 실행
+### 10.1. 개인정보 보호를 위한 브랜치 리뉴얼: 기존 버전에 이메일이 적힌걸보고 지웠으나 히스토리에 남아있기에 히스토리전부 지우기위하여 실행
 ```bash
+#1. 새로운 임시 브랜치 만들기 (히스토리 없이 시작)
 git checkout --orphan latest_branch
+#2. 모든 파일 추가 및 첫 커밋
 git add -A
 git commit -m "Initial commit (Final version)"
+#3. 기존의 main 브랜치 삭제하기
 git branch -D main
+#4. 현재 브랜치 이름을 main으로 바꾸기
 git branch -m main
+#5. GitHub에 강제로 덮어쓰기 (중요!)
 git push -f origin main
 ```
 
