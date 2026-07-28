@@ -336,6 +336,15 @@ branch.main.merge=refs/heads/main
 branch.main.vscode-merge-base=origin/main
 :
 ```
+### 개인정보 보호를 위한 브랜치 리뉴얼: 기존 버전에 이메일이 적힌걸보고 지웠으나 히스토리에 남아있기에 히스토리전부 지우기위하여 실행
+```bash
+git checkout --orphan latest_branch
+git add -A
+git commit -m "Initial commit (Final version)"
+git branch -D main
+git branch -m main
+git push -f origin main
+```
 
 ### 11. 트러블 슈팅-1번째건: 깃연동과정에서 파일의 위치를 찾지 못하는 실수
 ```bash
@@ -343,7 +352,7 @@ branch.main.vscode-merge-base=origin/main
 ####문제: 위치 오류로 README.md가 깃에 안올라간 상황이 나옴. 
 ####원인: 터미널에서의 인식하는 위치에 README.md파일이 없음
 ####결과: README.md의 위치 파악후 올림.
-### 문제상황: git push origin main 입력후 확인결과 깃 jha21vvv-codyssey-01에 README.md에 jha21vvv-codyssey-01라는 텍스트만 적혀있음.
+### git push origin main 입력후 확인결과 깃 jha21vvv-codyssey-01에 README.md에 jha21vvv-codyssey-01라는 텍스트만 적혀있음.
 ### 해결방식 일단 네이토로 상황 분석에 도움 요청
 ### 네이토 답변"**내 컴퓨터(VSCode)에서 수정한 내용을 GitHub 서버로 보내주는 과정(Push)**을 아직 안 했기 때문이에요. 아래 순서대로 따라 해서 작성한 내용을 GitHub에 반영해 봅시다!"
 ### 제시된 아래코드 터미널에 입력
