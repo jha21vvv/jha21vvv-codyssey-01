@@ -58,6 +58,7 @@ jha21vvv5332@c5r9s4 workspace % chmod 444 test.txt
 jha21vvv5332@c5r9s4 workspace % ls -l test.txt
 -r--r--r--  1 jha21vvv5332  jha21vvv5332  10 Jul 27 19:42 test.txt
 # 소유자, 같은 그룹의 사용자들, 일반 사용자
+# 읽기 4, 쓰기2, 실행1
 ```
 
 
