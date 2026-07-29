@@ -403,7 +403,7 @@ git add .
 #  커밋 메시지와 함께 저장
 git commit -m "first feedback"
 # 커밋 메시지와 함께 저장
-git commit -m "feat: add bind-mount test index.html and docker setup"
+git push origin main
 ```
 ### 10.1. 개인정보 보호를 위한 브랜치 리뉴얼: 기존 버전에 이메일이 적힌걸보고 지웠으나 히스토리에 남아있기에 히스토리전부 지우기위하여 실행
 ```bash
