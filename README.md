@@ -338,7 +338,7 @@ Status: Downloaded newer image for nginx:latest
 
 ### 바인드 마운트 테스트로 일단 입력
 
-![결과1](260729_bind00.png)
+![결과1](260729_bind02.png)
 
 jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Bind Mount is Working!</h1>' > index.html
 
