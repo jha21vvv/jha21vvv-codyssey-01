@@ -45,18 +45,22 @@ jha21vvv5332@c5r9s4 workspace % cat test.txt
 Hello Git
 jha21vvv5332@c5r9s4 workspace % cp test.txt copy.txt
 jha21vvv5332@c5r9s4 workspace % mv copy.txt renamed.txt
+# -a는 모든걸 의미함. 올
 jha21vvv5332@c5r9s4 workspace % ls -a 
 .               ..              renamed.txt     test.txt
 jha21vvv5332@c5r9s4 workspace % rm renamed.txt
-jha21vvv5332@c5r9s4 workspace % ls -a
+jha21vvv5332@c5r9s4 workspace % ls -a 
 .               ..              test.txt
-# 파일/디렉토리 권한 변경 실습 (요구사항 3): 읽기전용으로 파일 권한 변경
+# 파일/디렉토리 권한 변경 실습 (요구사항 3): 읽기전용으로 파일 권한 변경 -l:리스트라는 뜻
 jha21vvv5332@c5r9s4 workspace % ls -l test.txt
 -rw-r--r--  1 jha21vvv5332  jha21vvv5332  10 Jul 27 19:42 test.txt
 jha21vvv5332@c5r9s4 workspace % chmod 444 test.txt
 jha21vvv5332@c5r9s4 workspace % ls -l test.txt
 -r--r--r--  1 jha21vvv5332  jha21vvv5332  10 Jul 27 19:42 test.txt
+# 소유자, 같은 그룹의 사용자들, 일반 사용자
 ```
+
+
 ### 5. Docker 기본 운영 및 6. 실습
 ```bash
 # Docker 설치 및 기본 점검 (요구사항 4): 버전확인, 도커 정보 출력
@@ -161,7 +165,7 @@ Server:
 WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
 ##Docker 기본 운영
 # 내 컴퓨터에 설치된 프로그램 설치 파일(설계도) 리스트 보기
-# 이미지는 "내가 설정한 환경을 그대로 떠놓은 스냅샷(Snapshot)" 
+# >>> 추가 해석: 이미지는 "내가 설정한 환경을 그대로 떠놓은 스냅샷(Snapshot)" 
 jha21vvv5332@c5r9s4 workspace % docker images
 REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
 #Docker가 내 컴퓨터에서 제대로 작동하는지 확인하는 가장 표준적인 테스트 명령어
@@ -192,11 +196,13 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-#내 컴퓨터에 존재하는 모든 컨테이너의 목록과 상태를 보여줘!라는 명령어
+# 컨테이너 목록 수정
+# 내 컴퓨터에 존재하는 모든 컨테이너의 목록과 상태를 보여줘!라는 명령어, ps는 현재 상태, -a는 전부
 jha21vvv5332@c5r9s4 workspace % docker ps -a
 CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
 221c5fd86797   hello-world   "/hello"   6 seconds ago   Exited (0) 6 seconds ago             sleepy_villani
-#	실행해!-컨테이너 안으로 들어가서 키보드로 명령어를 입력하고 결과를 화면으로 보여줘-'my-ubuntu'라는 이름을 붙여-ubuntu라는 운영체제 이미지를 사용해-컨테이너가 켜지자마자 실행할 프로그램
+#	이미지를 활용해서 도커 창조
+# 실행해!-컨테이너 안으로 들어가서 키보드로 명령어를 입력하고 결과를 화면으로 보여줘-'my-ubuntu'라는 이름을 붙여-ubuntu라는 운영체제 이미지를 사용해-컨테이너가 켜지자마자 실행할 프로그램
 jha21vvv5332@c5r9s4 workspace % docker run -it --name my-ubuntu ubuntu bash
 Unable to find image 'ubuntu:latest' locally
 latest: Pulling from library/ubuntu
@@ -222,13 +228,14 @@ b47e3dafa4c0   ubuntu        "bash"     31 seconds ago   Exited (0) 17 seconds a
 ### 커스텀 포인트: 기본 index.html 파일을 내가 만든 파일로 교체함.
 ### 목적: Docker를 이용해 정적 웹 페이지를 서비스하는 커스텀 서버 구축.
 ```bash
-#서버 만들고 그 서버 폴더에 헬로도커 입력, 
+# 서버 만들고 그 서버 폴더에 헬로도커 입력, 
 jha21vvv5332@c5r9s4 workspace % mkdir my-web-server
 jha21vvv5332@c5r9s4 workspace % cd my-web-server
 jha21vvv5332@c5r9s4 my-web-server % echo "<h1>Hello, Docker! This is my custom server.</h1>" > index.html
-#도커 파일에 nginx라는 웹 서버 이미지로 만들어둠. 인덱스 파일을 도커의 이미지(nginx)에 따라 붙임.
+# 도커 파일에 nginx라는 웹 서버 이미지로 만들어둠. 인덱스 파일을 도커의 이미지(nginx)에 따라 붙임.
 jha21vvv5332@c5r9s4 my-web-server % touch Dockerfile
-#위의 내용을 나만의 이미지로 하여 저장
+# 위의 내용을 나만의 이미지로 하여 저장
+# 코드 추가설명: t는 생성할 도커 이미지에 '이름(태그)'을 붙여주는 옵션, my-web-app라고 이름 붙여주는 셈.
 jha21vvv5332@c5r9s4 my-web-server % docker build -t my-web-app .
 [+] Building 7.9s (7/7) FINISHED                                                                                                                                                                                                                          docker:orbstack
  => [internal] load build definition from Dockerfile                                                                                                                                                                                                                 0.2s
@@ -261,8 +268,10 @@ jha21vvv5332@c5r9s4 my-web-server % docker build -t my-web-app .
  => exporting to image                                                                                                                                                                                                                                               0.2s
  => => exporting layers                                                                                                                                                                                                                                              0.1s
  => => writing image sha256:c68389fb37be02999ca9365b3475f6807fbfc17ab56d98e5d081a168c570b39a                                                                                                                                                                         0.0s
- => => naming to docker.io/library/my-web-app                                                                                                                                                                                                                        0.0s
-# 컨테이너는 백그라운드로 가동-내 컴퓨터의 8080포트로 들어오면 컨테이너의 80포트로 보내주라는 이야기-실행될 컨테이너 이름-사용될 이미지 이름
+ => => naming to docker.io/library/my-web-app 
+
+# 컨테이너 내부와 외부의 포트를 연결하여 출력할수 있는 환경을 만들어줌.
+# 코드 설명: 컨테이너는 백그라운드로 가동-내 컴퓨터의 8080포트로 들어오면 컨테이너의 80포트로 보내주라는 이야기-실행될 컨테이너 이름-사용될 이미지 이름
 jha21vvv5332@c5r9s4 my-web-server % docker run -d -p 8080:80 --name my-running-app my-web-app
 ecc8e64eb3f08c015ff3ef464a7856dd507082ec05d3cbfb2c07b743229c5373
 jha21vvv5332@c5r9s4 my-web-server % curl localhost:8080
@@ -281,6 +290,8 @@ jha21vvv5332@c5r9s4 my-web-server % docker volume create my-db-vol
 my-db-vol
 
 # 컨테이너1에서 데이터 작성 후 삭제
+# 코드 해석: 컨테이너를 만들고 바로 실행해줘---i (interactive): 사용자가 입력을 할 수 있게 상태를 유지-t (tty): 터미널 화면(검은 창)을 제공-컨테이너의 이름을 container1이라고 지어줄게
+# -내 도커 볼륨인 my-db-vol을 컨테이너 안의 /mnt/data 폴더와 연결해줘-내 도커 볼륨인 my-db-vol을 컨테이너 안의 /mnt/data 폴더와 연결해줘
 jha21vvv5332@c5r9s4 my-web-server % docker run -it --name container1 -v my-db-vol:/mnt/data ubuntu bash
 root@980e1d4fb8b8:/# echo "This data will survive!" > /mnt/data/test.txt
 ls /mnt/data
@@ -297,11 +308,61 @@ root@56443a6b8b75:/# cat /mnt/data/test.txt
 This data will survive!
 ```
 
+
+#### 9.1. 바인드 마운트 테스트
+```bash
+###테스트를 위한 파일 생성
+jha21vvv5332@c6r5s1 mkdir bind-mount-test
+###해당위치로 이동
+jha21vvv5332@c6r5s1 cd bind-mount-test
+###바인드 마운트 테스트용 설정
+#코드 해석: 백그라운드에서 실행해줘!"-컨테이너 이름을 my-bind-server로 정해- 현재 내가 위치한 폴더의 전체 경로를 자동으로 입력해주는 명령어- :왼쪽(내 컴퓨터 폴더)과 오른쪽(컨테이너 안의 폴더)을 연결함
+#  -Nginx 서버가 웹 페이지 파일(index.html 등)을 찾는 기본 경로Nginx 서버가 웹 페이지 파일(index.html 등)을 찾는 기본 경로- 사용할 이미지 이름
+jha21vvv5332@c6r5s1 bind-mount-test % docker run -d \
+  -p 8080:80 \
+  --name my-bind-web \
+  -v $(pwd):/usr/share/nginx/html \
+  nginx
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+062e450697fa: Pull complete 
+82454cdbf456: Pull complete 
+3c7ab7949321: Pull complete 
+cacfcdd01f30: Pull complete 
+b6698f04e005: Pull complete 
+2bedaf25031a: Pull complete 
+d26f27cc8c41: Pull complete 
+Digest: sha256:5a88c9c45479443d7be2eadc894b4ed0a9801bae03d97a5760ae13b5c2005942
+Status: Downloaded newer image for nginx:latest
+3706739a3c337a076d6101dfa7f7abc5d0d49ea10c0d4fb9d7b7337b4119cdcb
+
+###바인드 마운트 테스트로 일단 입력
+![포트 매핑 결과](./260729_bind00.png)
+jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Bind Mount is Working!</h1>' > index.html
+
+###바인드 마운트 테스트용 변경된것 확인
+![포트 매핑 결과](./260729_bind01.png)
+jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Hello from My Mac!</h1>' > index.html
+```
+
 #### 10. Git 설정 및 GitHub 연동과 보안 및 개인정보 보호
 
 ```bash
+##자주 쓰는 깃전용 
+#이름
+#코드해석: 역할: Git에서 사용할 사용자 이름을 설정합니다.
 jha21vvv5332@c5r9s4 workspace % git config --global user.name "jha21vvv"
+#아이디로 일단 접속할곳
 jha21vvv5332@c5r9s4 workspace % git config --global user.email "___개인정보"
+#깃허브의 클론 파일 만들기
+git clone https://github.com/본인의계정명/저장소이름.git
+# 복제한 폴더 안으로 들어갑니다
+cd 저장소이름
+#도커 연결 확인
+docker ps
+#VS Code에서 폴더 열기
+code .
+#깃관련 정보
 jha21vvv5332@c5r9s4 workspace % git config --list
 credential.helper=osxkeychain
 user.name=jha21vvv
@@ -335,6 +396,14 @@ branch.main.remote=origin
 branch.main.merge=refs/heads/main
 branch.main.vscode-merge-base=origin/main
 :
+
+#### 깃 변경사항 업데이트하여 업데이트하기
+#변경사항 바구니에 담기
+git add .
+#  커밋 메시지와 함께 저장
+git commit -m "first feedback"
+# 커밋 메시지와 함께 저장
+git commit -m "feat: add bind-mount test index.html and docker setup"
 ```
 ### 10.1. 개인정보 보호를 위한 브랜치 리뉴얼: 기존 버전에 이메일이 적힌걸보고 지웠으나 히스토리에 남아있기에 히스토리전부 지우기위하여 실행
 ```bash
@@ -408,18 +477,8 @@ git push origin main
 ### README.md 수정하여 깃에 업로드 완료
 ```
 
-### 11. 트러블 슈팅-2번째건: 주석 간의 색깔 차이 문제
 
-```bash
-#####요약: 
-#### 문제: 일부분을 직접 수정 추가하는 과정에서 주석들을 그룹화할때 주석의 색이 다르게 나오는 문제 상황
-#### 원인: ```bash~```내에 있냐 유무에 따라 ###의 주석 색이 달라짐.
-#### 해결: 문서 정렬 규칙화 성공.
-
-###관련 네이토 답변: 아, 그 이유는 바로 위에 있는 코드 블록(```)이 닫히지 않았기 때문이에요!
-```
-
-### 11. 트러블 슈팅-3번째건: 맥 pc처음사용에 따른 문제
+### 11. 트러블 슈팅-2번째건: 맥 pc처음사용에 따른 문제
 ```bash
 #####요약: 
 #### 문제: 맥 처음 사용에 따라, 복사붙여넣기, 스크린샷, 한영변환키, 화면전환등을 몰라서 별도로 2시간이상의 맥에 적응하는 시간 소요됨
