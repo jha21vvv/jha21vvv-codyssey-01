@@ -335,18 +335,22 @@ d26f27cc8c41: Pull complete
 Digest: sha256:5a88c9c45479443d7be2eadc894b4ed0a9801bae03d97a5760ae13b5c2005942
 Status: Downloaded newer image for nginx:latest
 3706739a3c337a076d6101dfa7f7abc5d0d49ea10c0d4fb9d7b7337b4119cdcb
+
+
+jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Bind Mount is Working!</h1>' > index.html
+
+jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Hello from My Mac!</h1>' > index.html
+
 ```
 ### 바인드 마운트 테스트로 일단 입력
 
 ![결과1](260729_bind02.png)
 
-jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Bind Mount is Working!</h1>' > index.html
 
 ### 바인드 마운트 테스트용 변경된것 확인
 
 ![결과2](260729_bind01.png)
 
-jha21vvv5332@c6r5s1 bind-mount-test % echo '<h1>Hello from My Mac!</h1>' > index.html
 
 
 #### 10. Git 설정 및 GitHub 연동과 보안 및 개인정보 보호
